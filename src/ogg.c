@@ -1,5 +1,5 @@
 /*
-** Copyright (C) 2002-2016 Erik de Castro Lopo <erikd@mega-nerd.com>
+** Copyright (C) 2002-2019 Erik de Castro Lopo <erikd@mega-nerd.com>
 ** Copyright (C) 2007 John ffitch
 ** Copyright (C) 2018 Arthur Taylor <art@ified.ca>
 **
@@ -527,7 +527,7 @@ ogg_stream_seek_page_search (SF_PRIVATE *psf, OGG_PRIVATE *odata, uint64_t targe
 		*/
 		while (begin < end)
 		{	ret = ogg_sync_next_page (psf, &page, boundary - seek_pos, &seek_pos) ;
-			if (ret < 0)
+			if (ret <= 0)
 				return ret ;
 			page_offset = seek_pos ;
 			if (ret == 0)
