@@ -1414,7 +1414,13 @@ ogg_opus_analyze_file (SF_PRIVATE *psf)
 	error = ogg_opus_unpack_next_page (psf, odata, oopus) ;
 	if (error < 0 && psf->error)
 		return psf->error ;
+
 	gp = ogg_opus_calculate_page_duration (odata) ;
+	if (gp <= 0)
+	{	psf_log_printf (psf, "Opus : Page duration of zero!\n") ;
+		return SFE_MALFORMED_FILE ;
+		} ;
+
 	if (!ogg_page_eos (&odata->opage))
 	{	if (gp > oopus->pg_pos)
 		{	psf_log_printf (psf, "Opus : First data page's granule position is less than total number of samples on the page!\n") ;
